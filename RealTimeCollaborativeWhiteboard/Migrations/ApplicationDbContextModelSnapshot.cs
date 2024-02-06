@@ -232,6 +232,31 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
+                {
+                    b.Property<string>("DeskID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CurrUserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DeskID");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Desks");
+                });
+
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -309,6 +334,15 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
+                {
+                    b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

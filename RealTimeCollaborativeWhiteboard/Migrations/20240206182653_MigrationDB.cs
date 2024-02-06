@@ -93,6 +93,26 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Desks",
+                columns: table => new
+                {
+                    DeskID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UrlPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrUserID = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Desks", x => x.DeskID);
+                    table.ForeignKey(
+                        name: "FK_Desks_Users_userId",
+                        column: x => x.userId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -220,6 +240,11 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Desks_userId",
+                table: "Desks",
+                column: "userId");
         }
 
         /// <inheritdoc />
@@ -239,6 +264,9 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Desks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

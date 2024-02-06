@@ -13,6 +13,7 @@ namespace RealTimeCollaborativeWhiteboard.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Desk> Desks { get; set; }
 
         public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
         {
@@ -20,7 +21,6 @@ namespace RealTimeCollaborativeWhiteboard.Data
             {
                 builder.Property(u => u.Name);
             }
-
         }
     }
 }
