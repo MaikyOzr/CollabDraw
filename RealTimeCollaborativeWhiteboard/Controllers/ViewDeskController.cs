@@ -17,13 +17,11 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             _environment = environment;
         }
 
-
         [HttpGet]
         public IActionResult Index()
         {
-            var photoPath = Path.Combine(_environment.WebRootPath, "Photos");
-            var photoFiles = Directory.GetFiles(photoPath);
-            return View(photoFiles);
+            var desks = _dbContext.Desks.ToList(); // Отримання списку столів з бази даних
+            return View(desks);
         }
     }
 }

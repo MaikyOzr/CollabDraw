@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.fixed-size-image {
+    width: 205px;
+}
+.modal-dialog {
+    max-width: 90%; 
+    width: auto;
+}

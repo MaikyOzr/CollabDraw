@@ -1,44 +1,28 @@
-﻿@model IEnumerable<string>
-
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.Desk>
 @{
     ViewBag.Title = "Test Desk";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Image Gallery</title>
-    <style>
-        .fixed-size-image {
-            width: 500px; /* Задайте бажану ширину */
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-</head>
-<body>
-    <h1>Image Gallery</h1>
-    <div>
-        @foreach (var file in Model)
-        {
-            <a href="@(ConvertImageToBase64(file))" data-fancybox="gallery">
-            <img class="fixed-size-image" src="@(ConvertImageToBase64(file))" alt="Photo" />
-            </a>
-        }
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('.fancybox').fancybox();
-        });
-    </script>
-</body>
-</html>
-
-
-@functions {
-    string ConvertImageToBase64(string imagePath)
+<h1>Image Gallery</h1>
+<div class="">
+    @foreach (var desk in Model)
     {
-        byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
-        string base64String = "data:image/png;base64," + Convert.ToBase64String(imageBytes);
-        return base64String;
+        <img class="fixed-size-image" src="~/Photos/@desk.UrlPhoto" data-toggle="modal" data-target="#exampleModal" />
     }
-}
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Зображення</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Зображення">
+            </div>
+        </div>
+    </div>
+</div>
