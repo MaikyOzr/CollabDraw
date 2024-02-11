@@ -8,20 +8,33 @@
 <html>
 <head>
     <title>Image Gallery</title>
+    <style>
+        .fixed-size-image {
+            width: 500px; /* Задайте бажану ширину */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 </head>
 <body>
     <h1>Image Gallery</h1>
     <div>
         @foreach (var file in Model)
         {
-            <img src="@(ConvertImageToBase64(file))" alt="Photo" />
+            <a href="@(ConvertImageToBase64(file))" data-fancybox="gallery">
+            <img class="fixed-size-image" src="@(ConvertImageToBase64(file))" alt="Photo" />
+            </a>
         }
     </div>
+    <script>
+        $(document).ready(function () {
+            $('.fancybox').fancybox();
+        });
+    </script>
 </body>
 </html>
 
 
-@functions{
+@functions {
     string ConvertImageToBase64(string imagePath)
     {
         byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
