@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
@@ -26,6 +26,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> SavePhoto(IFormFile photoFile)
         {

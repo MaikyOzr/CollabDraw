@@ -13,5 +13,10 @@ namespace RealTimeCollaborativeWhiteboard.Models
         [ForeignKey("User")]
         public int CurrUserID { get; set; }
         public User? user { get; set; }
+
+        public IEnumerator<Desk> GetEnumerator()
+        {
+            yield return this; 
+        }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<string>
+
+@{
+    ViewBag.Title = "Test Desk";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Gallery</title>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    <div>
+        @foreach (var file in Model)
+        {
+            <img src="@(ConvertImageToBase64(file))" alt="Photo" />
+        }
+    </div>
+</body>
+</html>
+
+
+@functions{
+    string ConvertImageToBase64(string imagePath)
+    {
+        byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
+        string base64String = "data:image/png;base64," + Convert.ToBase64String(imageBytes);
+        return base64String;
+    }
+}
