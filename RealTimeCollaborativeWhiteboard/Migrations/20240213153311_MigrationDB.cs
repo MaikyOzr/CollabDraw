@@ -26,6 +26,20 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Boards",
+                columns: table => new
+                {
+                    BoardId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Boards", x => x.BoardId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -264,6 +278,9 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Boards");
 
             migrationBuilder.DropTable(
                 name: "Desks");

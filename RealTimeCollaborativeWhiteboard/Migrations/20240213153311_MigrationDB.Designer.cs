@@ -12,7 +12,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240211152014_MigrationDB")]
+    [Migration("20240213153311_MigrationDB")]
     partial class MigrationDB
     {
         /// <inheritdoc />
@@ -233,6 +233,27 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Board", b =>
+                {
+                    b.Property<int>("BoardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BoardId"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BoardId");
+
+                    b.ToTable("Boards");
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
