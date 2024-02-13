@@ -240,10 +240,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BoardId"));
 
-                    b.Property<int>("CurrUserID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Theme")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -252,8 +249,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BoardId");
-
-                    b.HasIndex("CurrUserID");
 
                     b.ToTable("Boards");
                 });
@@ -358,17 +353,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Board", b =>
-                {
-                    b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("CurrUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });

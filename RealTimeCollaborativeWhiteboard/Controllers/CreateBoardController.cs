@@ -8,13 +8,12 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
     public class CreateBoardController : Controller
     {
 
-        private readonly IWebHostEnvironment _environment;
+        //private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _dbContext;
 
-        public CreateBoardController(IWebHostEnvironment environment, ApplicationDbContext dbContext)
+        public CreateBoardController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _environment = environment;
         }
 
         [HttpGet]
@@ -24,9 +23,10 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateBoard(Board board) {
-            
-            return View();
+        public async Task<ActionResult> CreateBoard(Board board) {
+            _dbContext.Boards.Add(board);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("CreateBoard");
         }
         
     }

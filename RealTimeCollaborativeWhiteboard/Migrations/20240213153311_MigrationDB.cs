@@ -26,6 +26,20 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Boards",
+                columns: table => new
+                {
+                    BoardId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Boards", x => x.BoardId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -90,27 +104,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Boards",
-                columns: table => new
-                {
-                    BoardId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Theme = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CurrUserID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Boards", x => x.BoardId);
-                    table.ForeignKey(
-                        name: "FK_Boards_Users_CurrUserID",
-                        column: x => x.CurrUserID,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -261,11 +254,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Boards_CurrUserID",
-                table: "Boards",
-                column: "CurrUserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Desks_userId",
