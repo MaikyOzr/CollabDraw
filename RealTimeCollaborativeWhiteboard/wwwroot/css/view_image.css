@@ -1,0 +1,39 @@
+﻿.modal{
+    overflow: hidden;
+}
+.modal-dialog {
+    max-width: 70%;
+    width: auto;
+    min-height: 100%; 
+}
+.modal-content {
+    border-radius: 20px;
+}
+.modal-body {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+.fixed-size-image {
+    width: 205px;
+}
+.fixed-size-image__modal{
+    width: 50%;
+}
+#modalImage{
+    border-radius: 10px;
+}
+.modal-header {
+    padding-inline: 30px;
+}
+.modal-body{
+    padding-block: 30px;
+}
+.close{
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+}
+.btn_download {
+    
+}

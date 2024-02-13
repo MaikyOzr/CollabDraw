@@ -20,7 +20,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var desks = _dbContext.Desks.ToList(); // Отримання списку столів з бази даних
+            var desks = _dbContext.Desks.ToList(); 
             return View(desks);
         }
     }
