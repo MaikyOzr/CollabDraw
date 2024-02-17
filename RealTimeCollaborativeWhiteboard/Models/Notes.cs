@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RealTimeCollaborativeWhiteboard.Models
 {
-    public class Board 
+    public class Notes 
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BoardId { get; set; }
+        public int NotesId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
 

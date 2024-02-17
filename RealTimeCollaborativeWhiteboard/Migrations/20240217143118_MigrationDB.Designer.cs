@@ -12,7 +12,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240213153311_MigrationDB")]
+    [Migration("20240217143118_MigrationDB")]
     partial class MigrationDB
     {
         /// <inheritdoc />
@@ -235,27 +235,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Board", b =>
-                {
-                    b.Property<int>("BoardId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BoardId"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BoardId");
-
-                    b.ToTable("Boards");
-                });
-
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
                 {
                     b.Property<string>("DeskID")
@@ -279,6 +258,27 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("Desks");
+                });
+
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Notes", b =>
+                {
+                    b.Property<int>("NotesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotesId"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NotesId");
+
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.User", b =>

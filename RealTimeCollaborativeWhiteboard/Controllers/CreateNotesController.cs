@@ -5,28 +5,28 @@ using RealTimeCollaborativeWhiteboard.Models;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
-    public class CreateBoardController : Controller
+    public class CreateNotesController : Controller
     {
 
         //private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _dbContext;
 
-        public CreateBoardController(ApplicationDbContext dbContext)
+        public CreateNotesController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         [HttpGet]
-        public ActionResult CreateBoard()
+        public ActionResult CreateNotes()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBoard(Board board) {
-            _dbContext.Boards.Add(board);
+        public async Task<ActionResult> CreateNotes(Notes note) {
+            _dbContext.Notes.Add(note);
             await _dbContext.SaveChangesAsync();
-            return RedirectToAction("CreateBoard");
+            return RedirectToAction("CreateNotes");
         }
         
     }
