@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
+using RealTimeCollaborativeWhiteboard.Models;
+using System.Composition;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
@@ -17,8 +20,24 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var boards = _dbContext.Notes.ToList();
-            return View(boards);
+            var notes = _dbContext.Notes.ToList();
+            return View(notes);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id) {
+            if (id != null) {
+                var note = await _dbContext.Notes.FirstOrDefaultAsync(p => p.NotesId == id);
+                if (note != null)
+                {
+                    _dbContext.Notes.Remove(note);
+                    await _dbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View();
+        }
+        
+
     }
 }

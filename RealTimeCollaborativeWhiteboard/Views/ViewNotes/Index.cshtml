@@ -11,8 +11,12 @@
         <tr>
             <td>@item.Title</td>
             <td>@item.Content</td>
-        </tr>    
-
+        </tr>
+        <td>
+            <form asp-controller="ViewNotes" asp-action="Delete" method="post" asp-route-id="@item.NotesId">
+                <input type="submit" value="Удалить" />
+            </form>
+        </td>
     }
 </table>
 
