@@ -5,19 +5,54 @@
 
 <h1>Notes page</h1>
 <table class="table">
-    <tr><th>Name</th><th>Content</th></tr>
-    @foreach (var item in Model)
-    {
+    <thead>
         <tr>
-            <td>@item.Title</td>
-            <td>@item.Content</td>
+            <th>Name</th>
+            <th>Content</th>
+            <th></th>
+            <th></th>
         </tr>
-        <td>
-            <form asp-controller="ViewNotes" asp-action="Delete" method="post" asp-route-id="@item.NotesId">
-                <input type="submit" value="Удалить" />
-            </form>
-        </td>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Content</td>
+                <td>
+                    <form asp-controller="ViewNotes" asp-action="Delete" method="post" asp-route-id="@item.NotesId">
+                        <input type="submit" value="Удалить" />
+                    </form>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal_@item.NotesId">
+                        Edit
+                    </button>
+                    <div class="modal fade" id="editModal_@item.NotesId" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_@item.NotesId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel_@item.NotesId">Edit Note</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form asp-action="Edit" method="post">
+                                        <input type="hidden" name="Id" value="@item.NotesId" />
+                                        <div class="form-group">
+                                            <label for="content_@item.NotesId">Content:</label>
+                                            <input type="text" class="form-control" id="content_@item.NotesId" name="Content" value="@item.Content" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
 </table>
-
-

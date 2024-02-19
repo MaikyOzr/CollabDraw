@@ -37,7 +37,17 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             }
             return View();
         }
-        
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(Notes note) {
+            var existingNote = await _dbContext.Notes.FirstOrDefaultAsync(p => p.NotesId == note.NotesId);
+            if (existingNote != null)
+            {
+                _dbContext.Notes.Update(existingNote);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(note);
+        }
     }
 }
