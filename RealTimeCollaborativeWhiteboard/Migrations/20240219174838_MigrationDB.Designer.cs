@@ -12,7 +12,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240219151315_MigrationDB")]
+    [Migration("20240219174838_MigrationDB")]
     partial class MigrationDB
     {
         /// <inheritdoc />
