@@ -9,6 +9,5 @@ namespace RealTimeCollaborativeWhiteboard.Models
         public int NotesId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-
     }
 }

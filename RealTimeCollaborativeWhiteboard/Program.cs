@@ -54,6 +54,12 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=CreateDesk}/{action=Index}/{id?}");
+app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller = ViewNotes}/{action=Index}/{id?}");
+
 
 app.MapRazorPages();
 app.Run();
