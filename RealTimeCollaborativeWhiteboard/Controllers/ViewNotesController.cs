@@ -60,33 +60,22 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Notes note)
+        public async Task<IActionResult> Edit(int id, Notes updateNote)
         {
-            if (ModelState.IsValid)
+            var note = await _dbContext.Notes.FirstOrDefaultAsync(p => p.NotesId == id);
+            if (note != null)
             {
-                var existNotes = new Notes()
+                if (updateNote.Title != null)
                 {
-                    NotesId = note.NotesId,
-                    Title = note.Title,
-                    Content = note.Content,
-                };
-                _dbContext.Notes.Update(existNotes);
+                    note.Title = updateNote.Title;
+                }
+                if (updateNote.Content != null)
+                {
+                    note.Content = updateNote.Content;
+                }
                 await _dbContext.SaveChangesAsync();
-                return RedirectToAction("Index");
-                //var existingNote = await _dbContext.Notes.AsNoTracking().SingleOrDefaultAsync(n => n.NotesId == note.NotesId);
-                //if (existingNote != null)
-                //{
-                //    existingNote.Title = note.Title;
-                //    existingNote.Content = note.Content;
-                //    await _dbContext.SaveChangesAsync();
-                //    return RedirectToAction("Index");
-                //}
-                //else
-                //{
-                //    return NotFound(); // Якщо не знайдено існуючий запис
-                //}
             }
-            return View(note); // Повернути форму редагування з помилками, якщо дані недійсні
+            return RedirectToAction("Edit");
         }
 
 
