@@ -57,8 +57,6 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             return View(note);
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Notes updateNote)
         {

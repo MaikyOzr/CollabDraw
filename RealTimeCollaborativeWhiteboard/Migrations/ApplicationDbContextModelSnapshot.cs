@@ -234,9 +234,11 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
                 {
-                    b.Property<string>("DeskID")
+                    b.Property<int>("DeskID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeskID"));
 
                     b.Property<int>("CurrUserID")
                         .HasColumnType("int");

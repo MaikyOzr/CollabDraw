@@ -110,7 +110,8 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 name: "Desks",
                 columns: table => new
                 {
-                    DeskID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DeskID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UrlPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CurrUserID = table.Column<int>(type: "int", nullable: false),

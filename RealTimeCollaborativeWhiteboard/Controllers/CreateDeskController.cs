@@ -28,6 +28,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpPost]
+        [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
         public async Task<IActionResult> SavePhoto(IFormFile photoFile)
         {
             if (photoFile != null && photoFile.Length > 0)
@@ -41,11 +42,9 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                     await photoFile.CopyToAsync(fileStream);
                 }
 
-                // Save the file path to the database
                 var desk = new Desk
                 {
-                    // Assign other properties of Desk object
-                    UrlPhoto = uniqueFileName // Saving just the file name assuming UrlPhoto is a string in Desk model
+                    UrlPhoto = uniqueFileName 
                 };
 
                 // Save to database
@@ -55,9 +54,8 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Create"); // Handle error case
+            return View("Create"); 
         }
     }
-
 }
 

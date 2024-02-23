@@ -8,6 +8,10 @@
     @foreach (var desk in Model)
     {
         <img class="fixed-size-image" src="~/Photos/@desk.UrlPhoto" data-toggle="modal" data-target="#exampleModal" />
+        <form method="post" asp-action="DeletePhoto" asp-controller="ViewDesk">
+            <input type="hidden" name="id" value="@desk.DeskID" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
     }
 </div>
 

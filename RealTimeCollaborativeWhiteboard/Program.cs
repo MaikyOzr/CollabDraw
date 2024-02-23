@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
-using RealTimeCollaborativeWhiteboard.Data;
-using System;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +21,22 @@ builder.Services.AddMvc()
             options.HtmlHelperOptions.ClientValidationEnabled = true;
         });
 
+builder.Services.Configure<IISServerOptions>(options => options.MaxRequestBodySize = int.MaxValue);
+builder.Services.Configure<KestrelServerOptions > (options =>
+{
+    options.Limits.MaxRequestBodySize = int.MaxValue; 
+});
+builder.Services.Configure<FormOptions>(x =>
+{
+    x.ValueLengthLimit = int.MaxValue;
+    x.MultipartBodyLengthLimit = int.MaxValue;
+    x.MultipartBoundaryLengthLimit = int.MaxValue;
+    x.MultipartHeadersCountLimit = int.MaxValue;
+    x.MultipartHeadersLengthLimit = int.MaxValue;
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -33,7 +44,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

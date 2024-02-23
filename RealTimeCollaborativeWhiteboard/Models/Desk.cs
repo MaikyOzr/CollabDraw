@@ -7,7 +7,7 @@ namespace RealTimeCollaborativeWhiteboard.Models
     public class Desk
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string? DeskID { get; set; }
+        public int DeskID { get; set; }
         public string? Title { get; set; }
         public string? UrlPhoto { get; set; }
         [ForeignKey("User")]
