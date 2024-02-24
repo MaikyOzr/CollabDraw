@@ -12,9 +12,17 @@
 </head>
 <body class="main-background">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 nav-panel-backrgound">
-            <div class="container-fluid">
-                <a class="navbar-brand text-decoration-none text-light" asp-area="" asp-controller="Home" asp-action="Index">DataScribe</a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 nav-panel-backrgound">
+            <div class="container-fluid ps-5 pe-5">
+                <a class="text-decoration-none me-3" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="logo-container d-flex">
+                        <img class="me-1" src="/img/svg/logo.svg" />
+                        <div class="m-0 p-0">
+                            <p class="navbar-brand text-light logo-title">DataScribe</p>
+                            <p class="text-muted m-0 logo-subtitle">Today - Tomorrow</p>
+                        </div>
+                    </div>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,16 +30,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="CreateDesk" asp-action="Index">CreateDesk</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="ViewDesk" asp-action="Index">ViewPhoto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="CreateNotes" asp-action="CreateNotes">CreateNotes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="ViewNotes" asp-action="Index">ViewNotes</a>
@@ -48,9 +47,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted footer-background">
+    <footer class="footer text-muted footer-background">
         <div class="container">
-            <p class="text-light">&copy; 2024 - DataScribe</p>
+            <p class="text-light"></p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

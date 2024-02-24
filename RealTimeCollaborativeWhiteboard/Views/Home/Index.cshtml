@@ -1,13 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="d-flex main-container justify-content-center align-items-center">
-    <div class="text-center">
-        <h1 class="display-4 font-poppins">Welcome</h1>
-        <p class="font-poppins">
-            Welcome to <strong>DataScribe</strong>!<br>
-            Here you can conveniently store your data and write personal notes.<br>
-            Start your journey to an organized and creative life right now!
-        </p>
+<div class="d-flex main-container align-items-center">
+    <div>
+        <div class="welcome-container">
+            <h1 class="text-light main-page-title">Welcome</h1>
+            <p class="text-light">
+                Welcome to <strong>DataScribe</strong>!<br>
+                Here you can conveniently store your data and write personal notes.<br>
+                Start your journey to an organized and creative life right now!
+            </p>
+        </div>
+        <div class="nav-container mt-5">
+            <a class="custom-btn btn main-btn" asp-area="" asp-controller="CreateDesk" asp-action="Index"><span>CreateDesk</span></a>
+            <a class="custom-btn btn main-btn" asp-area="" asp-controller="CreateNotes" asp-action="CreateNotes"><span>CreateNotes</span></a>
+        </div>
     </div>
 </div>
