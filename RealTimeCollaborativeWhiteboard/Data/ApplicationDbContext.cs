@@ -13,7 +13,7 @@ namespace RealTimeCollaborativeWhiteboard.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Desk> Desks { get; set; }
+        public DbSet<Files> Files { get; set; }
         public DbSet<Notes> Notes { get; set; }
 
         public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<AppUser>

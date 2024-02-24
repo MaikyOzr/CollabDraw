@@ -6,12 +6,12 @@ using RealTimeCollaborativeWhiteboard.Models;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
-    public class ViewDeskController : Controller
+    public class ViewFilesController : Controller
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _dbContext;
 
-        public ViewDeskController(IWebHostEnvironment environment, ApplicationDbContext dbContext)
+        public ViewFilesController(IWebHostEnvironment environment, ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             _environment = environment;
@@ -20,14 +20,14 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var desks = _dbContext.Desks.ToList(); 
+            var desks = _dbContext.Files.ToList(); 
             return View(desks);
         }
 
         [HttpPost]
         public async Task<IActionResult> DeletePhoto(int id)
         {
-            var image = await _dbContext.Desks.FirstOrDefaultAsync(f => f.DeskID == id);
+            var image = await _dbContext.Files.FirstOrDefaultAsync(f => f.DeskID == id);
             if (image != null)
             {
                 if (!string.IsNullOrEmpty(image.UrlPhoto))
@@ -39,7 +39,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                     }
                 }
 
-                _dbContext.Desks.Remove(image);
+                _dbContext.Files.Remove(image);
                 await _dbContext.SaveChangesAsync();
             }
             return RedirectToAction("Index");

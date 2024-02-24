@@ -232,7 +232,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
                 {
                     b.Property<int>("DeskID")
                         .ValueGeneratedOnAdd()
@@ -256,7 +256,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("Desks");
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Notes", b =>
@@ -359,7 +359,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
                 {
                     b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
                         .WithMany()

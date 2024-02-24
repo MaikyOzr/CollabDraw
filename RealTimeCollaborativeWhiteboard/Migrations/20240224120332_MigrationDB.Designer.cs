@@ -12,7 +12,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240223175543_MigrationDB")]
+    [Migration("20240224120332_MigrationDB")]
     partial class MigrationDB
     {
         /// <inheritdoc />
@@ -235,7 +235,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
                 {
                     b.Property<int>("DeskID")
                         .ValueGeneratedOnAdd()
@@ -259,7 +259,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("Desks");
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Notes", b =>
@@ -362,7 +362,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Desk", b =>
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
                 {
                     b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
                         .WithMany()

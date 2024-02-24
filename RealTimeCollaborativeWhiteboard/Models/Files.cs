@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealTimeCollaborativeWhiteboard.Models
 {
-    public class Desk
+    public class Files
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DeskID { get; set; }
@@ -14,7 +14,7 @@ namespace RealTimeCollaborativeWhiteboard.Models
         public int CurrUserID { get; set; }
         public User? user { get; set; }
 
-        public IEnumerator<Desk> GetEnumerator()
+        public IEnumerator<Files> GetEnumerator()
         {
             yield return this; 
         }

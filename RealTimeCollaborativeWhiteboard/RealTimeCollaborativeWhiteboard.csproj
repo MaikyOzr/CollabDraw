@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\CreateDesk\ViewPhoto.cshtml" />
+    <Content Remove="Views\CreateFiles\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,15 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CreateDesk\ViewPhoto.cshtml" />
+    <UpToDateCheckInput Remove="Views\CreateFiles\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\CreateDesk\ViewPhoto.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CreateFiles\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\ViewDesk\Index.cshtml" />
+    <None Include="Views\ViewFiles\Index.cshtml" />
   </ItemGroup>
 
 </Project>

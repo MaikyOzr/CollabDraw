@@ -107,7 +107,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Desks",
+                name: "Files",
                 columns: table => new
                 {
                     DeskID = table.Column<int>(type: "int", nullable: false)
@@ -119,9 +119,9 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Desks", x => x.DeskID);
+                    table.PrimaryKey("PK_Files", x => x.DeskID);
                     table.ForeignKey(
-                        name: "FK_Desks_Users_userId",
+                        name: "FK_Files_Users_userId",
                         column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -257,8 +257,8 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Desks_userId",
-                table: "Desks",
+                name: "IX_Files_userId",
+                table: "Files",
                 column: "userId");
         }
 
@@ -281,7 +281,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Desks");
+                name: "Files");
 
             migrationBuilder.DropTable(
                 name: "Notes");

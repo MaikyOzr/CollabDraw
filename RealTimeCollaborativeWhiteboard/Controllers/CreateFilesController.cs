@@ -5,12 +5,12 @@ using RealTimeCollaborativeWhiteboard.Models;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
-    public class CreateDeskController : Controller
+    public class CreateFilesController : Controller
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _dbContext;
 
-        public CreateDeskController(IWebHostEnvironment environment, ApplicationDbContext dbContext)
+        public CreateFilesController(IWebHostEnvironment environment, ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             _environment = environment;
@@ -42,13 +42,13 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                     await photoFile.CopyToAsync(fileStream);
                 }
 
-                var desk = new Desk
+                var desk = new Files
                 {
                     UrlPhoto = uniqueFileName 
                 };
 
                 // Save to database
-                _dbContext.Desks.Add(desk);
+                _dbContext.Files.Add(desk);
                 await _dbContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");
