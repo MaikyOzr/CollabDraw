@@ -3,6 +3,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,15 @@ builder.Services.Configure<FormOptions>(x =>
     x.MultipartHeadersLengthLimit = int.MaxValue;
 });
 
+builder.Services.Configure<IdentityOptions>(opt =>
+{
+    opt.Password.RequireDigit = true;
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireNonAlphanumeric = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -63,7 +73,7 @@ app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=CreateDesk}/{action=Index}/{id?}");
+    pattern: "{controller=CreateFiles}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.MapControllerRoute(

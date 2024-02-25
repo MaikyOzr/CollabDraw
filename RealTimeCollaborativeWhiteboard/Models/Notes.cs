@@ -7,7 +7,11 @@ namespace RealTimeCollaborativeWhiteboard.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int NotesId { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public string? Title { get; set; }
+        public string? Content { get; set; }
+
+        [ForeignKey("User")]
+        public string? CurrUserID { get; set; }
+        public User? user { get; set; }
     }
 }

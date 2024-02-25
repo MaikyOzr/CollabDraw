@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+using System.Security.Claims;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
@@ -18,6 +20,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             var desks = _dbContext.Files.ToList(); 
@@ -25,20 +28,25 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> DeletePhoto(int id)
         {
             var image = await _dbContext.Files.FirstOrDefaultAsync(f => f.DeskID == id);
             if (image != null)
             {
-                if (!string.IsNullOrEmpty(image.UrlPhoto))
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (image.CurrUserID == userId) 
                 {
-                    var filePath = Path.Combine(_environment.WebRootPath, "Photos", image.UrlPhoto);
-                    if (System.IO.File.Exists(filePath))
+                    if (!string.IsNullOrEmpty(image.UrlPhoto))
                     {
-                        System.IO.File.Delete(filePath);
+                        var filePath = Path.Combine(_environment.WebRootPath, "Photos", image.UrlPhoto);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
                     }
                 }
-
                 _dbContext.Files.Remove(image);
                 await _dbContext.SaveChangesAsync();
             }

@@ -8,10 +8,9 @@ namespace RealTimeCollaborativeWhiteboard.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DeskID { get; set; }
-        public string? Title { get; set; }
         public string? UrlPhoto { get; set; }
         [ForeignKey("User")]
-        public int CurrUserID { get; set; }
+        public string? CurrUserID { get; set; }
         public User? user { get; set; }
 
         public IEnumerator<Files> GetEnumerator()

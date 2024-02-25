@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+using System.Security.Claims;
 
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
@@ -28,6 +30,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
         public async Task<IActionResult> SavePhoto(IFormFile photoFile)
         {
@@ -37,18 +40,21 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + photoFile.FileName;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await photoFile.CopyToAsync(fileStream);
                 }
 
-                var desk = new Files
+                var file = new Files
                 {
-                    UrlPhoto = uniqueFileName 
+                    UrlPhoto = uniqueFileName,
+                    CurrUserID = userId
                 };
 
                 // Save to database
-                _dbContext.Files.Add(desk);
+                _dbContext.Files.Add(file);
                 await _dbContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");
