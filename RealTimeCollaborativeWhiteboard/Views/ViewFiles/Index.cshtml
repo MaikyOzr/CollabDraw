@@ -7,7 +7,7 @@
 <div>
     @foreach (var desk in Model)
     {
-        <img class="fixed-size-image" src="~/Photos/@desk.UrlPhoto" data-toggle="modal" data-target="#exampleModal" />
+        <img class="fixed-size-image" src="@Url.Action("GetPhotos", "CreateFiles", new{fileName = desk.UrlPhoto})" data-toggle="modal" data-target="#exampleModal" />
         <form method="post" asp-action="DeletePhoto" asp-controller="ViewFiles">
             <input type="hidden" name="id" value="@desk.DeskID" />
             <button type="submit" class="btn btn-danger">Delete</button>

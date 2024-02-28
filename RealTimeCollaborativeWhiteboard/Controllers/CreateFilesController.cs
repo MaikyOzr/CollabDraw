@@ -36,7 +36,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         {
             if (photoFile != null && photoFile.Length > 0)
             {
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "Photos");
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Photos");
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + photoFile.FileName;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -62,6 +62,14 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
             return View("Create"); 
         }
+
+        [HttpGet]
+        public IActionResult GetPhotos(string fileName) {
+            var filePath = Path.Combine("Data", "Photos", fileName);
+            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            return File(fileStream, "image/jpj");
+        }
     }
+
 }
 
