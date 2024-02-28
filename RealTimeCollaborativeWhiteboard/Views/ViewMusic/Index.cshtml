@@ -1,0 +1,14 @@
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.Music>
+@{
+    ViewBag.Title = "Test Files";
+}
+
+<h1>Music</h1>
+<div>
+    @foreach (var music in Model){
+        <audio controls>
+        <source src="@Url.Action("GetMusic", "YourController", new { fileName =  music.UrlMusic})" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    }
+</div>

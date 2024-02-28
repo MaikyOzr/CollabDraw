@@ -256,6 +256,30 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Music", b =>
+                {
+                    b.Property<int>("MusicId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MusicId"));
+
+                    b.Property<string>("CurrUserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlMusic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MusicId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Music");
+                });
+
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Notes", b =>
                 {
                     b.Property<int>("NotesId")
@@ -363,6 +387,15 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
+                {
+                    b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Music", b =>
                 {
                     b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
                         .WithMany()

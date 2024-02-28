@@ -1,0 +1,17 @@
+﻿@model RealTimeCollaborativeWhiteboard.Models.Music
+
+@{
+    ViewBag.Title = "Test Files";
+}
+
+<h2>Test Files</h2>
+
+@using (Html.BeginForm("SaveMusic", "UploadMusic", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label for="musicFile">Select Music:</label>
+        <input type="file" name="musicFile" id="musicFile" accept="audio/*" />
+    </div>
+    <button type="submit">Save Music</button>
+
+}

@@ -9,22 +9,14 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 {
     public class CreateFilesController : Controller
     {
-        private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _dbContext;
 
-        public CreateFilesController(IWebHostEnvironment environment, ApplicationDbContext dbContext)
+        public CreateFilesController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _environment = environment;
         }
         [HttpGet]
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Create()
         {
             return View();
         }
@@ -69,6 +61,9 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             return File(fileStream, "image/jpj");
         }
+
+        
+        
     }
 
 }
