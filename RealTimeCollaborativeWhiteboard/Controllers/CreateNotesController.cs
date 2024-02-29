@@ -33,6 +33,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             _dbContext.Notes.Add(note);
             await _dbContext.SaveChangesAsync();
 
+
             return RedirectToAction("Index", "ViewNotes");
         }
 
