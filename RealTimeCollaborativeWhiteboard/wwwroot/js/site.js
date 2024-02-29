@@ -3,11 +3,14 @@
 // Write your JavaScript code.
 $('.fixed-size-image').on('click', function () {
     var imageUrl = $(this).attr('src');
+    var deskId = $(this).data('desk-id');
     $('#modalImage').attr('src', imageUrl);
     $('#exampleModal').modal('show');
     $('#downloadButton')
         .attr('href', imageUrl)
         .attr('download', 'image.jpg');
+    $('#deskIdInput').val(deskId);
+    $('#deleteForm').attr('action', '/ViewFiles/DeletePhoto');
 });
 $('.close').on('click', function () {
     $('#exampleModal').modal('hide');

@@ -12,8 +12,8 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240228192910_MigrationDb")]
-    partial class MigrationDb
+    [Migration("20240229121115_MigrationDB")]
+    partial class MigrationDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

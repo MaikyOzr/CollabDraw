@@ -1,0 +1,14 @@
+﻿.card-container {
+    border: 2px solid #fff;
+    border-radius: 20px;
+    padding: 10px 5px 10px 5px;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    color: #fff;
+}
+.card-title{
+    
+}
+.card-header, .card-footer {
+    border: none
+}
