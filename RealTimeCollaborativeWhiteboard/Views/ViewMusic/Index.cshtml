@@ -7,8 +7,12 @@
 <div>
     @foreach (var music in Model){
         <audio controls>
-        <source src="@Url.Action("GetMusic", "YourController", new { fileName =  music.UrlMusic})" type="audio/mpeg">
+        <source src="@Url.Action("GetMusic", "UploadMusic", new { fileName =  music.UrlMusic})" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+        <form method="post" asp-action="DeleteMusic" asp-controller="ViewMusic">
+            <input type="hidden" name="id" value="@music.MusicId" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
     }
 </div>

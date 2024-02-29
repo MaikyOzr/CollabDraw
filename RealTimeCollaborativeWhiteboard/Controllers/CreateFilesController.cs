@@ -20,6 +20,11 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult CreateFiles()
+        {
+            return View();
+        }
 
         [HttpPost]
         [Authorize]
@@ -52,7 +57,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Create"); 
+            return View("CreateFiles"); 
         }
 
         [HttpGet]
@@ -61,9 +66,6 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             return File(fileStream, "image/jpj");
         }
-
-        
-        
     }
 
 }
