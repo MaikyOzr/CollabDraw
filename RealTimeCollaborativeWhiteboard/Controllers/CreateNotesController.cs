@@ -26,13 +26,15 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> CreateNotes(Notes note) {
+        public async Task<ActionResult> CreateNotes(Notes note)
+        {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             note.CurrUserID = userId;
             _dbContext.Notes.Add(note);
             await _dbContext.SaveChangesAsync();
-            return RedirectToAction("CreateNotes");
+
+            return RedirectToAction("Index", "ViewNotes");
         }
-        
+
     }
 }
