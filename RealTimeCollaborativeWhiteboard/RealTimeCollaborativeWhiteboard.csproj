@@ -23,17 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Music\" />
-    <Folder Include="Data\Photos\" />
-    <Folder Include="Data\Photos\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <UpToDateCheckInput Remove="Views\CreateFiles\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\CreateFiles\ViewPhoto.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Photos\" />
+    <Folder Include="Data\Music\" />
   </ItemGroup>
 
 </Project>
