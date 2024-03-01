@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+using System.IO;
 using System.Security.Claims;
-
+using System.Threading.Tasks;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
@@ -15,15 +17,12 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         {
             _dbContext = dbContext;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult CreateFiles()
-        {
-            return View();
+            var desks = _dbContext.Files.ToList();
+            return View(desks);
         }
 
         [HttpPost]
@@ -34,7 +33,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             if (photoFile != null && photoFile.Length > 0)
             {
                 var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Photos");
-                var uniqueFileName = Guid.NewGuid().ToString() + "_" + photoFile.FileName;
+                var uniqueFileName = Path.GetRandomFileName() + Path.GetExtension(photoFile.FileName);
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -50,23 +49,46 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                     CurrUserID = userId
                 };
 
-                // Save to database
                 _dbContext.Files.Add(file);
                 await _dbContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
 
-            return View("CreateFiles"); 
+            return View("Index");
         }
 
         [HttpGet]
-        public IActionResult GetPhotos(string fileName) {
+        public IActionResult GetPhotos(string fileName)
+        {
             var filePath = Path.Combine("Data", "Photos", fileName);
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return File(fileStream, "image/jpj");
+            return File(fileStream, "image/jpeg");
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeletePhoto(int id)
+        {
+            var image = await _dbContext.Files.FirstOrDefaultAsync(f => f.DeskID == id);
+            if (image != null)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (image.CurrUserID == userId)
+                {
+                    if (!string.IsNullOrEmpty(image.UrlPhoto))
+                    {
+                        var filePath = Path.Combine("Data", "Photos", image.UrlPhoto);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+                }
+                _dbContext.Files.Remove(image);
+                await _dbContext.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
     }
-
 }
-

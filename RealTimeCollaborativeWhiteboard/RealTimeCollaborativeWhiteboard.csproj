@@ -25,6 +25,7 @@
   <ItemGroup>
     <Folder Include="Data\Music\" />
     <Folder Include="Data\Photos\" />
+    <Folder Include="Data\Photos\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,10 +34,6 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\CreateFiles\ViewPhoto.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\ViewFiles\Index.cshtml" />
   </ItemGroup>
 
 </Project>
