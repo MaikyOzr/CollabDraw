@@ -1,7 +1,58 @@
-﻿@{
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.Music>
+
+@{
     ViewData["Title"] = "UploadMusic";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h1>@ViewData["Title"]</h1>
 
-<a asp-action="Upload" class="btn btn-lg btn-primary btn-register fs-5">Upload New</a>
+<div class="container mt-4">
+    <!-- Modal for Upload new audio form -->
+    <div class="modal fade" id="uploadAudioModal" tabindex="-1" role="dialog" aria-labelledby="uploadAudioModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadAudioModalLabel">Upload New Audio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("SaveMusic", "UploadMusic", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        <label for="musicFile">Select Music:</label>
+                        <input type="file" name="musicFile" id="musicFile" accept="audio/*" />
+                    </div>
+                    <button type="submit">Save Music</button>
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Button to trigger modal -->
+    <button type="button" class="btn btn-primary" id="uploadNewAudioBtn" data-toggle="modal" data-target="#uploadAudioModal">
+        Upload New Audio
+    </button>
+
+    <!-- Audio gallery -->
+    <div>
+        @if (Model != null)
+        {
+            @foreach (var music in Model)
+            {
+                <audio controls src="@Url.Action("GetMusic", "UploadMusic", new { fileName =  music.UrlMusic})" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <form method="post" asp-action="DeleteMusic" asp-controller="UploadMusic">
+                    <input type="hidden" name="id" value="@music.MusicId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            }
+        }
+        else
+        {
+            <p class="container">No audio found</p>
+        }
+    </div>
+</div>

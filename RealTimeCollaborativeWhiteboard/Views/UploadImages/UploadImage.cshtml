@@ -1,0 +1,16 @@
+﻿@model RealTimeCollaborativeWhiteboard.Models.Image
+
+@{
+    ViewBag.Title = "Test Files";
+}
+
+<h2>Test Files</h2>
+
+@using (Html.BeginForm("SavePhoto", "UploadImages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label for="photoFile">Select Photo:</label>
+        <input type="file" name="photoFile" id="photoFile" accept="image/*" />
+    </div>
+    <button type="submit">Save Photo</button>
+}

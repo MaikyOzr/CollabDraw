@@ -232,28 +232,28 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Image", b =>
                 {
-                    b.Property<int>("DeskID")
+                    b.Property<int>("ImageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeskID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
 
                     b.Property<string>("CurrUserID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UrlPhoto")
+                    b.Property<string>("UrlImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("userId")
                         .HasColumnType("int");
 
-                    b.HasKey("DeskID");
+                    b.HasKey("ImageId");
 
                     b.HasIndex("userId");
 
-                    b.ToTable("Files");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Music", b =>
@@ -386,7 +386,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Files", b =>
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Image", b =>
                 {
                     b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
                         .WithMany()

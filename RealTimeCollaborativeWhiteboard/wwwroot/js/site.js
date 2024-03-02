@@ -4,6 +4,11 @@
         $('#uploadPhotoModal').modal('show');
     });
 
+    // Handle click event on "Upload New Audio" button to show the modal
+    $('#uploadNewAudioBtn').on('click', function () {
+        $('#uploadAudioModal').modal('show');
+    });
+
     // Handle click event on "Delete" button to show the modal
     $('.deleteBtn').on('click', function () {
         var deskId = $(this).data('desk-id');

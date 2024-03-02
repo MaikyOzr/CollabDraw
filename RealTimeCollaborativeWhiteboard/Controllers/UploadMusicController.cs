@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
 using System.Security.Claims;
@@ -19,15 +20,10 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var audio = _dbContext.Music.ToList();
+            return View(audio);
         }
-
-        [HttpGet]
-        public ActionResult Upload() {
-            return View();
-        }
-
-
+            
         [HttpPost]
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
@@ -45,18 +41,20 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                 {
                     await musicFile.CopyToAsync(fileStream);
                 }
+
                 var music = new Music
                 {
                     UrlMusic = uniqueMusicName,
                     CurrUserID = userId
                 };
+
                 _dbContext.Music.Add(music);
                 await _dbContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
 
-            return View("Upload");
+            return View("Index");
         }
 
         [HttpGet]
@@ -65,6 +63,42 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
             var filePath = Path.Combine("Data", "Music", fileName);
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             return File(fileStream, "audio/mpeg");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteMusic(int id)
+        {
+            var audio = await _dbContext.Music.FirstOrDefaultAsync(m => m.MusicId == id);
+
+            if (audio != null)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (audio.CurrUserID == userId)
+                {
+                    if (!string.IsNullOrEmpty(audio.UrlMusic))
+                    {
+                        var filePath = Path.Combine("Data", "Music", audio.UrlMusic);
+
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            try
+                            {
+                                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                                {
+                                    System.IO.File.Delete(filePath);
+                                }
+                            }
+                            catch (IOException ex)
+                            {}
+                        }
+                    }
+                }
+                _dbContext.Music.Remove(audio);
+                await _dbContext.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
 
     }

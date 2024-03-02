@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\CreateFiles\ViewPhoto.cshtml" />
+    <Content Remove="Views\UploadImages\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\CreateFiles\ViewPhoto.cshtml" />
+    <UpToDateCheckInput Remove="Views\UploadImages\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\CreateFiles\ViewPhoto.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\UploadImages\ViewPhoto.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

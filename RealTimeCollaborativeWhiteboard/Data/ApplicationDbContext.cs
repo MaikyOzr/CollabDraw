@@ -13,7 +13,7 @@ namespace RealTimeCollaborativeWhiteboard.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Files> Files { get; set; }
+        public DbSet<Image> Images { get; set; }
         public DbSet<Notes> Notes { get; set; }
         public DbSet<Music> Music {get; set; }
 

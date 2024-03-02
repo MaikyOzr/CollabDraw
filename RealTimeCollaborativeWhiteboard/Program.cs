@@ -73,7 +73,12 @@ app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=CreateFiles}/{action=Index}/{id?}");
+    pattern: "{controller=UploadImage}/{action=Index}/{id?}");
+app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=UploadMusic}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.MapControllerRoute(
