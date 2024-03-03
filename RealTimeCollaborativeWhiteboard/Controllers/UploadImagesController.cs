@@ -78,17 +78,10 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                     if (!string.IsNullOrEmpty(image.UrlImage))
                     {
                         var filePath = Path.Combine("Data", "Photos", image.UrlImage);
+
                         if (System.IO.File.Exists(filePath))
                         {
-                            try
-                            {
-                                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
-                                {
-                                    System.IO.File.Delete(filePath);
-                                }
-                            }
-                            catch (IOException ex)
-                            {}
+                            System.IO.File.Delete(filePath);
                         }
                     }
                 }

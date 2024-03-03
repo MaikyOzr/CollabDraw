@@ -61,16 +61,17 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         public IActionResult GetMusic(string fileName)
         {
             var filePath = Path.Combine("Data", "Music", fileName);
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return File(fileStream, "audio/mpeg");
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                return File(fileStream, "audio/mpeg");
+            }
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> DeleteMusic(int id)
         {
-            var audio = await _dbContext.Music.FirstOrDefaultAsync(m => m.MusicId == id);
-
+            var audio = await _dbContext.Music.FirstOrDefaultAsync(f => f.MusicId == id);
             if (audio != null)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -83,15 +84,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
                         if (System.IO.File.Exists(filePath))
                         {
-                            try
-                            {
-                                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
-                                {
-                                    System.IO.File.Delete(filePath);
-                                }
-                            }
-                            catch (IOException ex)
-                            {}
+                            System.IO.File.Delete(filePath);
                         }
                     }
                 }
