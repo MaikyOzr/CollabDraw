@@ -11,8 +11,6 @@ namespace RealTimeCollaborativeWhiteboard.Models
         public string? UrlImage { get; set; }
         [ForeignKey("User")]
         public string? CurrUserID { get; set; }
-        public User? user { get; set; }
-
         public IEnumerator<Image> GetEnumerator()
         {
             yield return this; 

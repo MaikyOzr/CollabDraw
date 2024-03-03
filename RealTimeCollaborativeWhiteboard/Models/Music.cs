@@ -9,7 +9,6 @@ namespace RealTimeCollaborativeWhiteboard.Models
         public int MusicId { get; set; }
         public string? UrlMusic { get; set; }
         public string? CurrUserID { get; set; }
-        public User? user { get; set; }
         public IEnumerator<Music> GetEnumerator()
         {
             yield return this;

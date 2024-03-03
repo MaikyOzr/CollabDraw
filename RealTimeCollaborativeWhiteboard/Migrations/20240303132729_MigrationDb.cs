@@ -26,6 +26,63 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DocFiles",
+                columns: table => new
+                {
+                    DocId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DocUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocFiles", x => x.DocId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    ImageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UrlImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.ImageId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Music",
+                columns: table => new
+                {
+                    MusicId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UrlMusic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Music", x => x.MusicId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    NotesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.NotesId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -88,67 +145,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    ImageId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UrlImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    userId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.ImageId);
-                    table.ForeignKey(
-                        name: "FK_Images_Users_userId",
-                        column: x => x.userId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Music",
-                columns: table => new
-                {
-                    MusicId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UrlMusic = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    userId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Music", x => x.MusicId);
-                    table.ForeignKey(
-                        name: "FK_Music_Users_userId",
-                        column: x => x.userId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Notes",
-                columns: table => new
-                {
-                    NotesId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    userId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notes", x => x.NotesId);
-                    table.ForeignKey(
-                        name: "FK_Notes_Users_userId",
-                        column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
@@ -281,21 +277,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_userId",
-                table: "Images",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Music_userId",
-                table: "Music",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Notes_userId",
-                table: "Notes",
-                column: "userId");
         }
 
         /// <inheritdoc />
@@ -315,6 +296,9 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "DocFiles");
 
             migrationBuilder.DropTable(
                 name: "Images");

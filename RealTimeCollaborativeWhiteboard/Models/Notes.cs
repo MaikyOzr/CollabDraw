@@ -12,6 +12,5 @@ namespace RealTimeCollaborativeWhiteboard.Models
 
         [ForeignKey("User")]
         public string? CurrUserID { get; set; }
-        public User? user { get; set; }
     }
 }

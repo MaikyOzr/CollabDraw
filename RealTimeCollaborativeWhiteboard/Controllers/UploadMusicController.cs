@@ -9,7 +9,6 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 {
     public class UploadMusicController : Controller
     {
-
         private readonly ApplicationDbContext _dbContext;
 
         public UploadMusicController(ApplicationDbContext dbContext)

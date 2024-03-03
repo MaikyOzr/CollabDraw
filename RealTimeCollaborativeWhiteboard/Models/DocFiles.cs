@@ -10,8 +10,6 @@ namespace RealTimeCollaborativeWhiteboard.Models
         public string? DocUrl { get; set; }
         [ForeignKey("User")]
         public string? CurrUserID { get; set; }
-        public User? user { get; set; }
-
         public IEnumerator<DocFiles> GetEnumerator()
         {
             yield return this;

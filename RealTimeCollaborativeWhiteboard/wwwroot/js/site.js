@@ -9,6 +9,11 @@
         $('#uploadAudioModal').modal('show');
     });
 
+    // Handle click event on "Upload New Doc File" button to show the modal
+    $('#uploadNewDocFileBtn').on('click', function () {
+        $('#uploadDocFileModal').modal('show');
+    });
+
     // Handle click event on "Delete" button to show the modal
     $('.deleteBtn').on('click', function () {
         var deskId = $(this).data('desk-id');

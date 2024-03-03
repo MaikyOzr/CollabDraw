@@ -12,7 +12,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240302083939_MigrationDb")]
+    [Migration("20240303132729_MigrationDb")]
     partial class MigrationDb
     {
         /// <inheritdoc />
@@ -235,6 +235,25 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.DocFiles", b =>
+                {
+                    b.Property<int>("DocId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocId"));
+
+                    b.Property<string>("CurrUserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DocId");
+
+                    b.ToTable("DocFiles");
+                });
+
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Image", b =>
                 {
                     b.Property<int>("ImageId")
@@ -249,12 +268,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.Property<string>("UrlImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
-
                     b.HasKey("ImageId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Images");
                 });
@@ -273,12 +287,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.Property<string>("UrlMusic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
-
                     b.HasKey("MusicId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Music");
                 });
@@ -300,12 +309,7 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
-
                     b.HasKey("NotesId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Notes");
                 });
@@ -387,33 +391,6 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Image", b =>
-                {
-                    b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Music", b =>
-                {
-                    b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.Notes", b =>
-                {
-                    b.HasOne("RealTimeCollaborativeWhiteboard.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

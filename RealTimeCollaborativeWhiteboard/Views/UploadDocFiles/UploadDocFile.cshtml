@@ -1,0 +1,17 @@
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.DocFiles>
+
+@{
+    ViewBag.Title = "Test Files";
+}
+
+<h2>Test Files</h2>
+
+@using (Html.BeginForm("SaveDocFile", "UploadDocFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label for="musicFile">Select DocFile:</label>
+        <input type="file" name="docFile" id="docFile" accept=".doc, docx" />
+    </div>
+    <button type="submit">Save Doc File</button>
+
+}

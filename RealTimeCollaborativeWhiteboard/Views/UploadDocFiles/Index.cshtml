@@ -1,0 +1,54 @@
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.DocFiles>;
+
+@{
+    ViewData["Title"] = "UploadDocFiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="container mt-4">
+    <div class="modal fade" id="uploadDocFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadDocFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadDocFileModalLabel">Upload New DocFile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("SaveDocFile", "UploadDocFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        <label for="docFile">Select DocFile:</label>
+                        <input type="file" name="docFile" id="docFile" accept=".doc, docx"></input>
+                    </div> 
+                    <button type="submit">Save Doc File</button>
+                };
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary" id="uploadNewDocFileBtn" data-toggle="modal" data-target="#uploadAudioModal">
+    Upload New Doc File
+</button>
+
+<div>
+    @if (Model != null)
+    {
+        foreach (var doc in Model)
+        {
+            <iframe src="@Url.Action("GetDocuments", "UploadDocFiles", new { fileName =  doc.DocUrl})" type="application/msword">
+                Your browser does not support the audio element.
+            </iframe>
+            <form method="post" asp-action="DeleteDocFile" asp-controller="UploadDocFiles">
+                <input type="hidden" name="id" value="@doc.DocId"></input>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        }
+    }
+    else
+    {
+        <p class="container">No audio found</p>
+    }
+</div>
