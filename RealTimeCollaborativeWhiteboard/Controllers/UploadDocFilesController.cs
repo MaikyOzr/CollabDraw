@@ -55,8 +55,18 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         public IActionResult GetDocuments(string fileName)
         {
             var filePath = Path.Combine("Data", "Docs", fileName);
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return File(fileStream, "application/msword");
+            if (System.IO.File.Exists(filePath))
+            {
+                var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                return new FileContentResult(fileBytes, "application/msword")
+                {
+                    FileDownloadName = fileName // Встановлення імені файлу для завантаження
+                };
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
 

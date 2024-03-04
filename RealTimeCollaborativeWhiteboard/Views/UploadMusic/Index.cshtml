@@ -21,7 +21,7 @@
                 {
                     <div>
                         <label for="musicFile">Select Music:</label>
-                        <input type="file" name="musicFile" id="musicFile" accept="audio/*" />
+                        <input type="file" name="musicFile" id="musicFile" accept="audio/mpeg" />
                     </div>
                     <button type="submit">Save Music</button>
                 }
@@ -40,6 +40,7 @@
         {
             @foreach (var music in Model)
             {
+                <p>@music.UrlMusic</p>
                 <audio controls src="@Url.Action("GetMusic", "UploadMusic", new { fileName =  music.UrlMusic})" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>

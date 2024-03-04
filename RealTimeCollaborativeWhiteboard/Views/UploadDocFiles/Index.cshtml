@@ -38,9 +38,7 @@
     {
         foreach (var doc in Model)
         {
-            <iframe src="@Url.Action("GetDocuments", "UploadDocFiles", new { fileName =  doc.DocUrl})" type="application/msword">
-                Your browser does not support the audio element.
-            </iframe>
+            <a href="@Url.Action("GetDocuments", "UploadDocFiles", new { fileName =  doc.DocUrl})" download>@doc.DocUrl</a>
             <form method="post" asp-action="DeleteDocFile" asp-controller="UploadDocFiles">
                 <input type="hidden" name="id" value="@doc.DocId"></input>
                 <button type="submit" class="btn btn-danger">Delete</button>

@@ -60,10 +60,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         public IActionResult GetMusic(string fileName)
         {
             var filePath = Path.Combine("Data", "Music", fileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                return File(fileStream, "audio/mpeg");
-            }
+            return PhysicalFile(filePath, "audio/mpeg");
         }
 
         [HttpPost]
@@ -82,7 +79,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                         var filePath = Path.Combine("Data", "Music", audio.UrlMusic);
 
                         if (System.IO.File.Exists(filePath))
-                        {
+                        { 
                             System.IO.File.Delete(filePath);
                         }
                     }
