@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+using RealTimeCollaborativeWhiteboard.Services;
 using System.Security.Claims;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
-    public class UploadImagesController : Controller
+    public class UploadImagesController : Controller, IFileStorage
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -26,7 +27,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpPost]
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
-        public async Task<IActionResult> SavePhoto(IFormFile photoFile)
+        public async Task<IActionResult> SaveFile(IFormFile photoFile)
         {
             if (photoFile != null && photoFile.Length > 0)
             {
@@ -57,7 +58,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPhotos(string fileName)
+        public IActionResult GetFile(string fileName)
         {
             var filePath = Path.Combine("Data", "Photos", fileName);
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -66,7 +67,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeletePhoto(int id)
+        public async Task<IActionResult> DeleteFile(int id)
         {
             var image = await _dbContext.Images.FirstOrDefaultAsync(f => f.ImageId == id);
             if (image != null)

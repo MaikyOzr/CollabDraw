@@ -17,7 +17,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                @using (Html.BeginForm("SaveMusic", "UploadMusic", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("SaveFile", "UploadMusic", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div>
                         <label for="musicFile">Select Music:</label>
@@ -41,10 +41,10 @@
             @foreach (var music in Model)
             {
                 <p>@music.UrlMusic</p>
-                <audio controls src="@Url.Action("GetMusic", "UploadMusic", new { fileName =  music.UrlMusic})" type="audio/mpeg">
+                <audio controls src="@Url.Action("GetFile", "UploadMusic", new { fileName =  music.UrlMusic})" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
-                <form method="post" asp-action="DeleteMusic" asp-controller="UploadMusic">
+                <form method="post" asp-action="DeleteFile" asp-controller="UploadMusic">
                     <input type="hidden" name="id" value="@music.MusicId" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

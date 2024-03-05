@@ -16,7 +16,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                @using (Html.BeginForm("SaveDocFile", "UploadDocFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("SaveFile", "UploadDocFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div>
                         <label for="docFile">Select DocFile:</label>
@@ -38,8 +38,8 @@
     {
         foreach (var doc in Model)
         {
-            <a href="@Url.Action("GetDocuments", "UploadDocFiles", new { fileName =  doc.DocUrl})" download>@doc.DocUrl</a>
-            <form method="post" asp-action="DeleteDocFile" asp-controller="UploadDocFiles">
+            <a href="@Url.Action("GetFile", "UploadDocFiles", new { fileName =  doc.DocUrl})" download>@doc.DocUrl</a>
+            <form method="post" asp-action="DeleteFile" asp-controller="UploadDocFiles">
                 <input type="hidden" name="id" value="@doc.DocId"></input>
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>

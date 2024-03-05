@@ -19,7 +19,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" asp-action="SavePhoto" asp-controller="UploadImages" enctype="multipart/form-data">
+                    <form method="post" asp-action="SaveFile" asp-controller="UploadImages" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="photoFile" class="form-label">Select Photo:</label>
                             <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*" />
@@ -45,9 +45,9 @@
             {
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="@Url.Action("GetPhotos", "UploadImages", new { fileName = imgage.UrlImage })" class="card-img-top" alt="Photo" data-toggle="modal" data-target="#exampleModal" />
+                        <img src="@Url.Action("GetFile", "UploadImages", new { fileName = imgage.UrlImage })" class="card-img-top" alt="Photo" data-toggle="modal" data-target="#exampleModal" />
                         <div class="card-body">
-                            <form method="post" asp-action="DeletePhoto" asp-controller="UploadImages">
+                            <form method="post" asp-action="DeleteFile" asp-controller="UploadImages">
                                 <input type="hidden" name="id" value="@imgage.ImageId" />
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>

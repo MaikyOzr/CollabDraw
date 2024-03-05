@@ -9,8 +9,6 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 {
     public class CreateNotesController : Controller
     {
-
-        //private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _dbContext;
 
         public CreateNotesController(ApplicationDbContext dbContext)

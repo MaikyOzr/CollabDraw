@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+using RealTimeCollaborativeWhiteboard.Services;
 using System.Security.Claims;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
-    public class UploadMusicController : Controller
+    public class UploadMusicController : Controller, IFileStorage
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -26,7 +27,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpPost]
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
-        public async Task<IActionResult> SaveMusic(IFormFile musicFile)
+        public async Task<IActionResult> SaveFile(IFormFile musicFile)
         {
             if (musicFile != null && musicFile.Length > 0)
             {
@@ -57,7 +58,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMusic(string fileName)
+        public IActionResult GetFile(string fileName)
         {
             var filePath = Path.Combine("Data", "Music", fileName);
             return PhysicalFile(filePath, "audio/mpeg");
@@ -65,7 +66,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeleteMusic(int id)
+        public async Task<IActionResult> DeleteFile(int id)
         {
             var audio = await _dbContext.Music.FirstOrDefaultAsync(f => f.MusicId == id);
             if (audio != null)

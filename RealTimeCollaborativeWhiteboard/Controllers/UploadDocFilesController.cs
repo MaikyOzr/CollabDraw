@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealTimeCollaborativeWhiteboard.Data;
 using RealTimeCollaborativeWhiteboard.Models;
+using RealTimeCollaborativeWhiteboard.Services;
 using System.Security.Claims;
 
 namespace RealTimeCollaborativeWhiteboard.Controllers
 {
-    public class UploadDocFilesController : Controller
+    public class UploadDocFilesController : Controller, IFileStorage
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -26,7 +27,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpPost]
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
-        public async Task<IActionResult> SaveDocFile(IFormFile docFile) {
+        public async Task<IActionResult> SaveFile(IFormFile docFile) {
             if (docFile != null && docFile.Length > 0) {
                 var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Docs");
                 var uniqueDocName = Guid.NewGuid().ToString() + "_"+docFile.FileName;
@@ -52,7 +53,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetDocuments(string fileName)
+        public IActionResult GetFile(string fileName)
         {
             var filePath = Path.Combine("Data", "Docs", fileName);
             if (System.IO.File.Exists(filePath))
@@ -72,7 +73,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeleteDocFile(int id)
+        public async Task<IActionResult> DeleteFile(int id)
         {
             var docFile = await _dbContext.DocFiles.FirstOrDefaultAsync(d => d.DocId == id);
             if (docFile != null)
