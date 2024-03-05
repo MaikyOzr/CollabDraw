@@ -61,7 +61,7 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
                 var fileBytes = System.IO.File.ReadAllBytes(filePath);
                 return new FileContentResult(fileBytes, "application/msword")
                 {
-                    FileDownloadName = fileName // Встановлення імені файлу для завантаження
+                    FileDownloadName = fileName 
                 };
             }
             else
