@@ -21,6 +21,7 @@
     width: 50%;
 }
 #modalImage{
+    width: 75%;
     border-radius: 10px;
 }
 .modal-header {

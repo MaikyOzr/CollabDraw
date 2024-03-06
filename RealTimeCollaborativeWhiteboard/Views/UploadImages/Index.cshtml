@@ -5,61 +5,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-4 card-container p-4">
+    <div class="block text-light">
+        <h1>@ViewData["Title"]</h1>
 
-<div class="container mt-4">
-    <!-- Modal for Upload new photo form -->
-    <div class="modal fade" id="uploadPhotoModal" tabindex="-1" role="dialog" aria-labelledby="uploadPhotoModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadPhotoModalLabel">Upload New Photo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" asp-action="SaveFile" asp-controller="UploadImages" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="photoFile" class="form-label">Select Photo:</label>
-                            <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <!-- Button to trigger modal -->
+		<button type="button" class="custom-btn btn main-btn w-25" id="uploadNewPhotoBtn"><span>Upload New Photo</span></button>
     </div>
 
-    <!-- Button to trigger modal -->
-    <button type="button" class="btn btn-primary" id="uploadNewPhotoBtn">
-        Upload New Photo
-    </button>
-
-    <!-- Image gallery -->
-    <h2>Image Gallery</h2>
-    <div class="row">
-        @if (Model != null)
-        {
-            @foreach (var imgage in Model)
+    <div class="block text-light mt-3">
+        <!-- Image gallery -->
+        <h2>Image Gallery</h2>
+        <div class="row">
+            @if (Model != null)
             {
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="@Url.Action("GetFile", "UploadImages", new { fileName = imgage.UrlImage })" class="card-img-top" alt="Photo" data-toggle="modal" data-target="#exampleModal" />
-                        <div class="card-body">
-                            <form method="post" asp-action="DeleteFile" asp-controller="UploadImages">
-                                <input type="hidden" name="id" value="@imgage.ImageId" />
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                @foreach (var image in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="@Url.Action("GetFile", "UploadImages", new { fileName = image.UrlImage })" class="card-img-top" alt="Photo" data-toggle="modal" data-target="#exampleModal" />
+                            <div class="card-body">
+                                <form method="post" asp-action="DeleteFile" asp-controller="UploadImages">
+                                    <input type="hidden" name="id" value="@image.ImageId" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
-        }
-        else
-        {
-            <p class="container">No images found</p>
-        }
+            else
+            {
+                <p class="container">No images found</p>
+            }
+        </div>
+    </div>
+</div>
+<!-- Modal for Upload new photo form -->
+<div class="modal fade" id="uploadPhotoModal" tabindex="-1" role="dialog" aria-labelledby="uploadPhotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadPhotoModalLabel">Upload New Photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-action="SaveFile" asp-controller="UploadImages" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="photoFile" class="form-label">Select Photo:</label>
+                        <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
