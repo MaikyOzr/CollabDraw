@@ -17,6 +17,7 @@ namespace RealTimeCollaborativeWhiteboard.Data
         public DbSet<Notes> Notes { get; set; }
         public DbSet<Music> Music { get; set; }
         public DbSet<DocFiles> DocFiles { get; set; }
+        public DbSet<PDF> PDF { get; set; }
 
         public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
         {

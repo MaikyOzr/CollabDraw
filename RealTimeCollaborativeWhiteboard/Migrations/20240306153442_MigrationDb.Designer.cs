@@ -12,7 +12,7 @@ using RealTimeCollaborativeWhiteboard.Data;
 namespace RealTimeCollaborativeWhiteboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240303132729_MigrationDb")]
+    [Migration("20240306153442_MigrationDb")]
     partial class MigrationDb
     {
         /// <inheritdoc />
@@ -312,6 +312,25 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.HasKey("NotesId");
 
                     b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.PDF", b =>
+                {
+                    b.Property<int>("PDFId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PDFId"));
+
+                    b.Property<string>("CurrUserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PDFUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PDFId");
+
+                    b.ToTable("PDF");
                 });
 
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.User", b =>

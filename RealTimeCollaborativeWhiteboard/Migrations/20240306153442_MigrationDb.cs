@@ -83,6 +83,20 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PDF",
+                columns: table => new
+                {
+                    PDFId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PDFUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CurrUserID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PDF", x => x.PDFId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -308,6 +322,9 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notes");
+
+            migrationBuilder.DropTable(
+                name: "PDF");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

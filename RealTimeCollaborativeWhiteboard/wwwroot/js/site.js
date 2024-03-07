@@ -14,6 +14,11 @@
         $('#uploadDocFileModal').modal('show');
     });
 
+    // Handle click event on "Upload New pdf File" button to show the modal
+    $('#uploadNewPDFBtn').on('click', function () {
+        $('#uploadPDFModal').modal('show');
+    });
+
     // Handle click event on "Delete" button to show the modal
     $('.deleteBtn').on('click', function () {
         var deskId = $(this).data('desk-id');

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.PDF>
+
+@{
+    ViewBag.Title = "Test Files";
+}
+
+<h2>Test Files</h2>
+
+@using (Html.BeginForm("SaveFile", "PDF", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label for="pdfFile">Select pdf:</label>
+        <input type="file" name="pdfFile" id="pdfFile" accept=".pdf" />
+    </div>
+    <button type="submit">Save PDF</button>
+
+}

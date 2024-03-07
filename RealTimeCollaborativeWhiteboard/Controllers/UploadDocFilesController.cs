@@ -27,16 +27,15 @@ namespace RealTimeCollaborativeWhiteboard.Controllers
         [HttpPost]
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
-        public async Task<IActionResult> SaveFile(IFormFile docFile) {
-            if (docFile != null && docFile.Length > 0) {
+        public async Task<IActionResult> SaveFile(IFormFile file) {
+            if (file != null && file.Length > 0) {
                 var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Docs");
-                var uniqueDocName = Guid.NewGuid().ToString() + "_"+docFile.FileName;
+                var uniqueDocName = Guid.NewGuid().ToString() + "_"+ file.FileName;
                 var filePath = Path.Combine(uploadFolder, uniqueDocName);
-
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create)) {
-                    await docFile.CopyToAsync(fileStream);
+                    await file.CopyToAsync(fileStream);
                 }
 
                 var docFiles = new DocFiles

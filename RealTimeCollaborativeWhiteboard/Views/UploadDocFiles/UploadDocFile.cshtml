@@ -9,7 +9,7 @@
 @using (Html.BeginForm("SaveFile", "UploadDocFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div>
-        <label for="musicFile">Select DocFile:</label>
+        <label for="docFile">Select DocFile:</label>
         <input type="file" name="docFile" id="docFile" accept=".doc, docx" />
     </div>
     <button type="submit">Save Doc File</button>

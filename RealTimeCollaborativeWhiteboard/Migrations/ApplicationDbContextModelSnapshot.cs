@@ -311,6 +311,25 @@ namespace RealTimeCollaborativeWhiteboard.Migrations
                     b.ToTable("Notes");
                 });
 
+            modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.PDF", b =>
+                {
+                    b.Property<int>("PDFId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PDFId"));
+
+                    b.Property<string>("CurrUserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PDFUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PDFId");
+
+                    b.ToTable("PDF");
+                });
+
             modelBuilder.Entity("RealTimeCollaborativeWhiteboard.Models.User", b =>
                 {
                     b.Property<int>("Id")

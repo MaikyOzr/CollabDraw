@@ -1,0 +1,52 @@
+﻿@model IEnumerable<RealTimeCollaborativeWhiteboard.Models.PDF>
+
+@{
+    ViewData["Title"] = "UploadPDF";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="container mt-4">
+    <div class="modal fade" id="uploadPDFModal" tabindex="-1" role="dialog" aria-labelledby="uploadPDFModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadPDFModalLabel">Upload New PDF</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("SaveFile", "PDF", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        <label for="file">Select pdf:</label>
+                        <input type="file" name="file" id="pdfFile" accept=".pdf"/>
+                    </div>
+                    <button type="submit">Save PDF</button>
+                };
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary" id="uploadNewPDFBtn" data-toggle="modal" data-target="#uploadPDFModal">
+    Upload New PDF
+</button>
+
+<div>
+    @if (Model != null)
+    {
+        foreach (var pdf in Model)
+        {
+            <a href="@Url.Action("GetFile", "PDF", new { fileName = pdf.PDFUrl })" download>@pdf.PDFUrl</a>
+            <form method="post" asp-action="DeleteFile" asp-controller="PDF">
+                <input type="hidden" name="id" value="@pdf.PDFId"/>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        }
+    }
+    else
+    {
+        <p class="container">No file found</p>
+    }
+</div>
